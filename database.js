@@ -2,10 +2,10 @@ const { queue } = require('async');
 const { Client } = require('pg');
 
 var databaseConfig = {
-  user: 'gbucvqwv',
-  host: 'satao.db.elephantsql.com',
-  database: 'gbucvqwv',
-  password: 'cm7nKGmJc4HyswI2FR5zJhHWQWiJ5AVY',
+  user: 'maplkpyp',
+  host: 'john.db.elephantsql.com',
+  database: 'maplkpyp',
+  password: 'm2xzXadQj1SqPRACc0DaErpbQZk2xxqm',
   port: 5432,
 };
 
