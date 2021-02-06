@@ -33,6 +33,37 @@ const errors = {
   }
 };
 
+function getQueue(company_id) {
+  const client = new Client(databaseConfig);
+  client.connect();
+
+  const sql = 'SELECT * FROM queue_table WHERE company_id = ($1);';
+  const finalArr = [];
+
+  return client.query(sql,[company_id])
+  .then(function(result){
+    if(result.rowCount==0){
+      client.end();
+      return (finalArr);
+    }
+    for(let i=0; i<result.rows.length;i++){
+      if(result.rows[i].status == "active"){
+        finalArr.push({"queue_id":result.rows[i].queue_id,"is_active":1});
+      }
+      else{
+        finalArr.push({"queue_id":result.rows[i].queue_id,"is_active":0});
+      }
+    }
+    client.end();
+    return finalArr;
+  })
+  .catch(function(error){
+    client.end();
+    throw error;
+  });
+
+}
+
 function checkQueueIdExist(queue_id) {
   const client = new Client(databaseConfig);
   client.connect();
@@ -296,6 +327,7 @@ function closeDatabaseConnections() {
 }
 
 module.exports = {
+    getQueue,
     createQueue,
     updateQueue,
     arrivalRate,

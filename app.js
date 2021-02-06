@@ -149,6 +149,31 @@ app.get('/company/arrival_rate',validator.validate({query: schema_arrivalRate}),
 });
 
 /**
+ * Company: Get Queue
+ */
+
+app.get('/company/queue',function (req, res, next) {
+
+    const company_id = parseInt(req.query.company_id);
+    console.log(company_id)
+
+    if ((company_id>= 1000000000 && company_id<= 9999999999) || isNaN(customer_id)){
+        database.getQueue(company_id)
+            .then(function(result){
+                res.status(200).send(result);
+            })
+            .catch(function(error){
+                next(error);
+            });
+    }
+    else {
+        console.log('Invalid Query String');
+        next(errors.INVALID_QUERY_STRING);
+    };
+});
+
+
+/**
  * ========================== CUSTOMER =========================
  */
 
