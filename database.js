@@ -37,7 +37,7 @@ function getQueue(company_id) {
   const client = new Client(databaseConfig);
   client.connect();
 
-  const sql = 'SELECT * FROM queue_table WHERE company_id = ($1);';
+  const sql = 'SELECT * FROM queue_table WHERE company_id = ($1) ORDER BY queue_id ASC;';
   const finalArr = [];
 
   return client.query(sql,[company_id])
